@@ -11,7 +11,9 @@ Created on Wed Apr  7 11:29:59 2021
 import librosa
 X, sample_rate = librosa.load(<file name>, sr=None, offset=0)
 #Create spectrogram:
-spect = librosa.feature.melspectrogram(y=X, sr=sample_rate, 
-hop_length=sample_rate/100)
+spect = librosa.feature.melspectrogram(y=X, sr=sample_rate, hop_length=sample_rate/100)
 #Create MFCC matrix:
 #https://librosa.org/doc/main/generated/librosa.feature.mfcc.html
+
+
+https://github.com/wilrop/Import-CGN
