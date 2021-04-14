@@ -9,6 +9,9 @@ Created on Wed Apr  7 11:29:59 2021
 #%%Code snippets (python)
 # Read wav and sample frequency:
 import librosa
+import librosa.display
+import matplotlib.pyplot as plt
+import numpy as np
 import os 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 data_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/audio/wav/comp-b/nl')
@@ -20,12 +23,32 @@ for filename in os.listdir(data_dir):
          continue
     else:
         continue
-#%%
-X, sample_rate = librosa.load(<file name>, sr=None, offset=0)
+#%% Create Mel frequency spectrogram
+X, sample_rate = librosa.load(wav_files[0], sr=None, offset=0)
 #Create spectrogram:
-spect = librosa.feature.melspectrogram(y=X, sr=sample_rate, hop_length=sample_rate/100)
-#Create MFCC matrix:
-#https://librosa.org/doc/main/generated/librosa.feature.mfcc.html
+spect = librosa.feature.melspectrogram(y=X, sr=sample_rate,
+                                       hop_length=int(sample_rate/100))
+fig, ax = plt.subplots()
+S_dB = librosa.power_to_db(spect, ref=np.max)
+img = librosa.display.specshow(S_dB, x_axis='time',y_axis='mel', sr=sample_rate,
+                         fmax=8000, ax=ax)
+fig.colorbar(img, ax=ax, format='%+2.0f dB')
+
+ax.set(title='Mel-frequency spectrogram')
+#%% Create MFCC matrix:
+# https://librosa.org/doc/main/generated/librosa.feature.mfcc.html
+mfcc2 = librosa.feature.mfcc(y=X, sr=sample_rate, S=None, n_mfcc=20, dct_type=2, norm='ortho', lifter=0)
+mfcc3 = librosa.feature.mfcc(y=X, sr=sample_rate, S=None, n_mfcc=20, dct_type=3, norm='ortho', lifter=0)
+fig, ax = plt.subplots(nrows=3, sharex=True, sharey=True)
+img2 = librosa.display.specshow(mfcc2, x_axis='time', ax=ax[0])
+ax[0].set(title='Title: MFCC (dct_type=2)')
+fig.colorbar(img, ax=[ax[0]])
+img3 = librosa.display.specshow(mfcc3, x_axis='time', ax=ax[2])
+ax[2].set(title='HTK-style (dct_type=3)')
+fig.colorbar(img3, ax=[ax[2]])
+ax[1].remove()
+
+
 
 
 # https://github.com/wilrop/Import-CGN
