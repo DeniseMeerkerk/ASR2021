@@ -9,6 +9,18 @@ Created on Wed Apr  7 11:29:59 2021
 #%%Code snippets (python)
 # Read wav and sample frequency:
 import librosa
+import os 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+data_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/audio/wav/comp-b/nl')
+
+wav_files =[]
+for filename in os.listdir(data_dir):
+    if filename.endswith(".wav"): 
+         wav_files.append(os.path.join(data_dir,filename))
+         continue
+    else:
+        continue
+#%%
 X, sample_rate = librosa.load(<file name>, sr=None, offset=0)
 #Create spectrogram:
 spect = librosa.feature.melspectrogram(y=X, sr=sample_rate, hop_length=sample_rate/100)
