@@ -1,0 +1,3 @@
+[submodule "Import-CGN"]
+	path = Import-CGN
+	url = https://github.com/wilrop/Import-CGN
