@@ -37,4 +37,4 @@ def read_lines(filename):
                 sentence += spl[0] + " " # Add the read word (always first thing on the line) and add a space to make it legible
     return conv[1:] # We return from 1 onwards as the first one is empty (the first line of the file is a change of utterance, so the code produces one empty sentence).
 
-print(read_lines("fn000006.plk"))
+#print(read_lines("fn000006.plk"))

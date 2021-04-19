@@ -32,7 +32,18 @@ def getAudioFilenames():
              continue
         else:
             continue
-    return wav_files
+    
+    anno_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/annot/text/plk/comp-b/nl')
+    anno_files =[]
+    for filename in os.listdir(anno_dir):
+        if filename.endswith(".plk"): 
+             anno_files.append(os.path.join(anno_dir,filename))
+             continue
+        else:
+            continue
+    wav_files.sort()
+    anno_files.sort()
+    return wav_files, anno_files
 #%% Create Mel frequency spectrogram
 
 def plotMFS(filename):
@@ -94,15 +105,15 @@ def plotMFCC(X, sample_rate):
     ax[1].remove()
     return
 
-
+#%%
 def main():
-    wav_files=getAudioFilenames()
-    X, sample_rate=plotMFS(wav_files[1])
+    wav_files, anno_files = getAudioFilenames()
+    X, sample_rate = plotMFS(wav_files[2])
     plotMFCC(X, sample_rate)
-    return wav_files, X, sample_rate
-
+    return wav_files, anno_files, X, sample_rate
+#%%
 if __name__ == '__main__':
-    wav_files, X, sample_rate=main()
+    wav_files, anno_files, X, sample_rate = main()
 
 # https://github.com/wilrop/Import-CGN
 
