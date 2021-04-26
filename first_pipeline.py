@@ -31,20 +31,19 @@ import parse_file
 
 #%%
 wav_files, anno_files, X, sample_rate = code_snippets.main() 
-#%%
 test = parse_file.read_lines(anno_files[2])#="fn000006.plk"
 #%% split wavfile based on annotation
 def splitWav(filename=wav_files[2], ann=test): #wav_files[2] =fn000006
     X_train=[]
     y_train=[]
-    for n,i in enumerate(test):
-        begin=test[n][2]
-        end=test[n][3]
+    for n,i in enumerate(ann):
+        begin=ann[n][2]
+        end=ann[n][3]
         X, sample_rate = librosa.load(filename, sr=None, offset=begin, duration=end-begin)
         X_train.append(X)
-        y_train.append(test[n][1])
+        y_train.append(ann[n][1])
     return X_train, y_train
-
+#%%
 X, y = splitWav()
 
 #%% quick fix to pad the data.
@@ -84,9 +83,29 @@ model.compile(optimizer='adam',
 classifier = model.fit(X_train,
                     y_train,
                     epochs=10,
-                    batch_size=128)
+                    batch_size=32)
 
 #%% evaluate the model
 print("Evaluate on test data")
-results = model.evaluate(X_test, y_test, batch_size=128)
+results = model.evaluate(X_test, y_test, batch_size=32)
 print("test loss, test acc:", results)
+
+#%% evaluate on comp-a
+"""WERKT ALLEEN NOG OP DENISE'S COMPUTER
+MAAR CONCLUSIE: COMP-A WERKT NIET OP EEN NETWERK GETRAIND OP 1 VB VAN COMP-B
+ZOALS WE AL VERWACHTTEN"""
+# X2, y2 = splitWav(filename = '/home/denise/Documents/Vakken/ASR/Data_a/audio/fn000860.wav',
+#                   ann = parse_file.read_lines('/home/denise/Documents/Vakken/ASR/Data_a/nl/fn000860.plk')) #/home/denise/Documents/Vakken/ASR/Data_a/nl/fn000860.plk
+# y2 = encoder.fit_transform(y2)
+# #%%
+# padded_X2 = np.zeros((len(X2), padding))
+
+# for n, i in enumerate(X2):
+#     padded_X2[n,:len(i)] = i
+    
+# X2 = scaler.fit_transform(np.array(padded_X2, dtype = float))
+
+# print("Evaluate on comp-a data")
+# results2 = model.evaluate(X2, y2, batch_size=32)
+# y2_pred = model.predict(X2)
+# print("test loss, test acc:", results2)
