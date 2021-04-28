@@ -23,27 +23,27 @@ def getAudioFilenames():
         relatively from the current file location.
     '''
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    data_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/audio/wav/comp-b/nl')
+    data_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/audio/wav')
     
-    wav_files =[]
-    for filename in os.listdir(data_dir):
-        if filename.endswith(".wav"): 
-             wav_files.append(os.path.join(data_dir,filename))
-             continue
-        else:
-            continue
-    
-    anno_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/annot/text/plk/comp-b/nl')
-    anno_files =[]
-    for filename in os.listdir(anno_dir):
-        if filename.endswith(".plk"): 
-             anno_files.append(os.path.join(anno_dir,filename))
-             continue
-        else:
-            continue
+
+    wav_files =[]  
+    for root, dirs, files in os.walk(data_dir):
+        for name in files:
+            if name.endswith(".wav"):
+                wav_files.append(os.path.join(root,name))
     wav_files.sort()
+    
+    anno_dir = dir_path.replace("ASR2021",'Data/CGN_comp_ab/vol/bigdata2/corpora2/CGN2/data/annot/text/plk')
+    anno_files =[]
+        
+    for root, dirs, files in os.walk(anno_dir):
+        for name in files:
+            if name.endswith(".plk"):
+                anno_files.append(os.path.join(root,name))
     anno_files.sort()
+    
     return wav_files, anno_files
+#wav_files, anno_files = getAudioFilenames()
 #%% Create Mel frequency spectrogram
 
 def plotMFS(filename):
