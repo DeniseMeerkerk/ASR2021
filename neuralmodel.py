@@ -15,6 +15,7 @@ import librosa
 #import csv 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import confusion_matrix
 import keras
 from keras import layers
 from keras.models import Sequential
@@ -30,12 +31,12 @@ import parse_file
 import preprocessing
 
 
-X,y,sample_rate = preprocessing.split_soundfile()
+X,y = preprocessing.split_soundfile(-1)
 padded_X = preprocessing.pad_data(X)
 
 #%% waveplot of first (padded) segment
 plt.figure(figsize=(14, 5))
-librosa.display.waveplot(padded_X[0], sr=sample_rate)
+librosa.display.waveplot(padded_X[0])
 
 #%% ANN based on: https://www.kdnuggets.com/2020/02/audio-data-analysis-deep-learning-python-part-1.html
 encoder = LabelEncoder()
@@ -70,18 +71,20 @@ print("test loss, test acc:", results)
 """WERKT ALLEEN NOG OP DENISE'S COMPUTER
 MAAR CONCLUSIE: COMP-A WERKT NIET OP EEN NETWERK GETRAIND OP 1 VB VAN COMP-B
 ZOALS WE AL VERWACHTTEN"""
-# X2, y2 = splitWav(filename = '/home/denise/Documents/Vakken/ASR/Data_a/audio/fn000860.wav',
-#                   ann = parse_file.read_lines('/home/denise/Documents/Vakken/ASR/Data_a/nl/fn000860.plk')) #/home/denise/Documents/Vakken/ASR/Data_a/nl/fn000860.plk
-# y2 = encoder.fit_transform(y2)
-# #%%
-# padded_X2 = np.zeros((len(X2), padding))
+X2,y2 = preprocessing.split_soundfile(0)
+y2 = encoder.fit_transform(y2)
+#%%
+padded_X2 = np.zeros((len(X2), np.shape(padded_X)[1]))
 
-# for n, i in enumerate(X2):
-#     padded_X2[n,:len(i)] = i
+for n, i in enumerate(X2):
+    padded_X2[n,:len(i)] = i
     
-# X2 = scaler.fit_transform(np.array(padded_X2, dtype = float))
+X2 = scaler.fit_transform(np.array(padded_X2, dtype = float))
 
-# print("Evaluate on comp-a data")
-# results2 = model.evaluate(X2, y2, batch_size=32)
-# y2_pred = model.predict(X2)
-# print("test loss, test acc:", results2)
+print("Evaluate on comp-a data")
+results2 = model.evaluate(X2, y2, batch_size=32)
+y2_pred = model.predict(X2)
+print("test loss, test acc:", results2)
+#%% conf mat
+cm=confusion_matrix(y2,np.argmax(y2_pred,axis=1))
+print(cm)
