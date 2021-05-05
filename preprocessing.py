@@ -25,8 +25,9 @@ def splitWav(filename=code_snippets.getAudioFilenames()[0][0], ann=code_snippets
         begin=ann[n][2]
         end=ann[n][3]
         X, sample_rate = librosa.load(filename, sr=None, offset=begin, duration=end-begin)
-        X_train.append(X)
-        y_train.append(ann[n][1])
+        if len(X)> 0:
+            X_train.append(X)
+            y_train.append(ann[n][1])
     return X_train, y_train
 
 def split_soundfile(file_number=0):
