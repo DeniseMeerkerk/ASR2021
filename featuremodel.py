@@ -29,6 +29,17 @@ def feature_extraction(X):
         ten_perc = int(0.1*len(x))
         features_for_x.append(np.max(x[:-ten_perc])) # max volume of last ten percent of the file
         features_for_x.append(np.max(x[:-ten_perc]) - np.max(x[ten_perc:])) # difference in max volume between last ten percent and first ten percent of sentence
+        
+        # Use parselmouth to extract more interesting features
+        snd = parselmouth.Sound(x)
+        features_for_x.append(snd.get_energy())
+        features_for_x.append(snd.get_intensity())
+        
+        #print(x)
+        #pitch = snd.to_pitch()
+        #features_for_x.append(pitch.get_value_in_frame(0))
+        
+    
     
         features.append(features_for_x)
     return np.matrix(features)
@@ -98,8 +109,9 @@ def test_parselmouth(X):
     plt.show() # or plt.savefig("spectrogram_0.03.pdf")
 
 X,y = preprocessing.split_soundfile()
-#features = feature_extraction(X)
-#run_knn(features, y)
+features = feature_extraction(X)
+print(features)
+run_knn(features, y)
 
 
 
