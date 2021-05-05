@@ -36,6 +36,18 @@ def split_soundfile(file_number=0):
     X, y = splitWav(wav_files[file_number],y_data)
     return X, y
 
+def split_all_soundfiles():
+    wav_files, anno_files = code_snippets.getAudioFilenames()
+    X,y = [],[]
+    for i in range(len(wav_files)):
+        Xtemp, ytemp = split_soundfile(file_number=i)
+        X.append(Xtemp)
+        y.append(ytemp)
+    X = [item for sublist in X for item in sublist]
+    y = [item for sublist in y for item in sublist]
+    return X, y
+        
+
 #%% quick fix to pad the data.
 def pad_data(X):
 

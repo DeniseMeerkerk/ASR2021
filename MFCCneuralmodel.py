@@ -21,7 +21,9 @@ from keras.utils import to_categorical
 from keras import optimizers
 
 #%% audio input
-X,y = preprocessing.split_soundfile(-1)
+# X,y = preprocessing.split_soundfile(-1) # one data file
+X,y = preprocessing.split_all_soundfiles() # all data files
+
 sample_rate = 16000 # check this later
 mfcc_X=[]
 for x in X:
