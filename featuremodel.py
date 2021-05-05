@@ -1,11 +1,19 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Apr 28 2021
+
+@author: denise, nienke
+"""
+
 import numpy as np
 
 import code_snippets
 import parse_file
 import preprocessing
 
+from sklearn.neighbors import KNeighborsClassifier
 
-X,y = preprocessing.split_soundfile()
+
 
 def feature_extraction(X):
     features = []
@@ -13,17 +21,21 @@ def feature_extraction(X):
     for x in X:
         features_for_x = []
         # Get maximum volume (amplitude) in the last ten percent of utterence
-        last_ten_perc = int(0.1*len(x))
-        print(x)
-        print(last_ten_perc)
-        features_for_x.append(np.max(x[:-last_ten_perc]))
+        ten_perc = int(0.1*len(x))
+        features_for_x.append(np.max(x[:-ten_perc])) # max volume of last ten percent of the file
+        features_for_x.append(np.max(x[:-ten_perc]) - np.max(x[ten_perc:])) # difference in max volume between last ten percent and first ten percent of sentence
     
         features.append(features_for_x)
-    return features
+    return np.matrix(features)
+
+def run_knn(features, y):
+    neigh = KNeighborsClassifier(n_neighbors=3)
+    neigh.fit(features, y)
+    print(neigh.score(features,y))
 
 
-print(np.max(X[0]), np.max(X[1]), y)
 
-print(len(X[0]), len(X[1]))
 
-print(feature_extraction(X))
+X,y = preprocessing.split_soundfile()
+features = feature_extraction(X)
+run_knn(features, y)
