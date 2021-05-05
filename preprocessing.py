@@ -36,15 +36,26 @@ def split_soundfile(file_number=0):
     X, y = splitWav(wav_files[file_number],y_data)
     return X, y
 
-def split_all_soundfiles():
+def split_all_soundfiles(part=1):
     wav_files, anno_files = code_snippets.getAudioFilenames()
     X,y = [],[]
-    for i in range(len(wav_files)):
+    for i in range(int(len(wav_files)*part)):
         Xtemp, ytemp = split_soundfile(file_number=i)
         X.append(Xtemp)
         y.append(ytemp)
     X = [item for sublist in X for item in sublist]
     y = [item for sublist in y for item in sublist]
+    
+    # remove weird annotations
+    weird = list(set(y))
+    weird.remove('?')
+    weird.remove('.')
+    
+    indices = [i for i, x in enumerate(y) if x in weird]
+    
+    for index in sorted(indices, reverse=True):
+        del X[index]
+        del y[index]
     return X, y
         
 

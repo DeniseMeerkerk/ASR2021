@@ -40,7 +40,8 @@ librosa.display.waveplot(padded_X[0])
 
 #%% ANN based on: https://www.kdnuggets.com/2020/02/audio-data-analysis-deep-learning-python-part-1.html
 encoder = LabelEncoder()
-y = encoder.fit_transform(y)#Scaling the Feature columns
+y = encoder.fit_transform(y)
+#Scaling the Feature columns
 scaler = StandardScaler()
 X = scaler.fit_transform(np.array(padded_X, dtype = float))#Dividing data into training and Testing set
 X_train, X_test, y_train, y_test = train_test_split(padded_X, y, test_size=0.2)
