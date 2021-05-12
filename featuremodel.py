@@ -23,7 +23,7 @@ sns.set() # Use seaborn's default style to make attractive graphs
 def feature_extraction(X):
     features = []
     
-    for x in X:
+    for i,x in enumerate(X):
         features_for_x = []
         # Get maximum volume (amplitude) in the last ten percent of utterence
         ten_perc = int(0.1*len(x))
@@ -36,8 +36,10 @@ def feature_extraction(X):
         features_for_x.append(snd.get_intensity())
         
         #print(x)
-        #pitch = snd.to_pitch()
-        #features_for_x.append(pitch.get_value_in_frame(0))
+        print(i, len(x))
+        pitch = snd.to_pitch()
+        print(pitch.quantile)
+        features_for_x.append(pitch.get_value_in_frame(0))
         
     
     
