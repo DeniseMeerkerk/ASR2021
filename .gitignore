@@ -1,1 +1,5 @@
 *__pycache__*
+
+*.hdf5
+
+training_1/
