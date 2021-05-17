@@ -36,10 +36,12 @@ def split_soundfile(file_number=0):
     X, y = splitWav(wav_files[file_number],y_data)
     return X, y
 
-def split_all_soundfiles(part=1):
+def split_all_soundfiles(part=1, segment=0):
     wav_files, anno_files = code_snippets.getAudioFilenames()
     X,y = [],[]
-    for i in range(int(len(wav_files)*part)):
+    filenumbers = range(int(segment*len(wav_files)*part), 
+                        int(segment*len(wav_files)*part+len(wav_files)*part))
+    for i in filenumbers:
         Xtemp, ytemp = split_soundfile(file_number=i)
         X.append(Xtemp)
         y.append(ytemp)

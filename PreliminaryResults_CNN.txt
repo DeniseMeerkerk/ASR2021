@@ -1,0 +1,178 @@
+# 100% data -- 1 conv -- class weights
+runfile('/home/denise/Documents/Vakken/ASR/ASR2021/MFCCneuralmodel.py', wdir='/home/denise/Documents/Vakken/ASR/ASR2021')
+2021-05-12 11:04:18.582227: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2021-05-12 11:04:18.582251: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-05-12 11:07:03.371769: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 11:07:03.374576: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-12 11:07:03.374593: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-12 11:07:03.374612: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (dino): /proc/driver/nvidia/version does not exist
+2021-05-12 11:07:03.374996: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-12 11:07:03.375548: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 11:07:04.234817: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 1170355200 exceeds 10% of free system memory.
+2021-05-12 11:07:04.924066: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-12 11:07:04.956987: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 1899950000 Hz
+Epoch 1/10
+341/341 [==============================] - ETA: 0s - loss: 4.7615 - accuracy: 0.3931  2021-05-12 11:08:03.152397: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+341/341 [==============================] - 62s 181ms/step - loss: 4.7521 - accuracy: 0.3930 - val_loss: 0.6993 - val_accuracy: 0.1319
+Epoch 2/10
+341/341 [==============================] - 62s 183ms/step - loss: 0.6990 - accuracy: 0.1404 - val_loss: 0.6972 - val_accuracy: 0.1319
+Epoch 3/10
+341/341 [==============================] - 62s 182ms/step - loss: 0.6822 - accuracy: 0.3911 - val_loss: 0.7003 - val_accuracy: 0.1319
+Epoch 4/10
+341/341 [==============================] - 62s 182ms/step - loss: 0.6969 - accuracy: 0.1394 - val_loss: 0.6983 - val_accuracy: 0.1319
+Epoch 5/10
+341/341 [==============================] - 63s 185ms/step - loss: 0.7073 - accuracy: 0.1443 - val_loss: 0.6966 - val_accuracy: 0.1319
+Epoch 6/10
+341/341 [==============================] - 62s 182ms/step - loss: 0.7104 - accuracy: 0.1461 - val_loss: 0.6956 - val_accuracy: 0.1319
+Epoch 7/10
+341/341 [==============================] - 59s 174ms/step - loss: 0.6832 - accuracy: 0.2923 - val_loss: 0.6987 - val_accuracy: 0.1319
+Epoch 8/10
+341/341 [==============================] - 60s 176ms/step - loss: 0.6986 - accuracy: 0.1409 - val_loss: 0.6983 - val_accuracy: 0.1319
+Epoch 9/10
+341/341 [==============================] - 60s 175ms/step - loss: 0.7083 - accuracy: 0.1450 - val_loss: 0.6987 - val_accuracy: 0.1319
+Epoch 10/10
+341/341 [==============================] - 59s 174ms/step - loss: 0.6981 - accuracy: 0.1385 - val_loss: 0.6971 - val_accuracy: 0.1319
+Evaluate on test data
+2021-05-12 11:17:17.385991: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+86/86 [==============================] - 3s 39ms/step - loss: 0.6971 - accuracy: 0.1319
+2021-05-12 11:17:21.283037: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+confusion matrix:
+ [[   0 2363]
+ [   0  359]]
+test loss, test acc: [0.6971415281295776, 0.13188831508159637]
+
+# 100% data -- 1 conv -- no class weights
+runfile('/home/denise/Documents/Vakken/ASR/ASR2021/MFCCneuralmodel.py', wdir='/home/denise/Documents/Vakken/ASR/ASR2021')
+2021-05-12 11:27:42.842046: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2021-05-12 11:27:42.842071: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-05-12 11:30:20.171977: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 11:30:20.177204: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-12 11:30:20.177556: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-12 11:30:20.177586: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (dino): /proc/driver/nvidia/version does not exist
+2021-05-12 11:30:20.177840: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-12 11:30:20.178116: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 11:30:20.620430: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 1170355200 exceeds 10% of free system memory.
+2021-05-12 11:30:21.335407: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-12 11:30:21.356813: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 1899950000 Hz
+Epoch 1/10
+341/341 [==============================] - ETA: 0s - loss: 2.4868 - accuracy: 0.8432  2021-05-12 11:31:17.566851: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+341/341 [==============================] - 60s 174ms/step - loss: 2.4824 - accuracy: 0.8433 - val_loss: 0.4735 - val_accuracy: 0.8681
+Epoch 2/10
+341/341 [==============================] - 58s 172ms/step - loss: 0.4629 - accuracy: 0.8601 - val_loss: 0.4183 - val_accuracy: 0.8681
+Epoch 3/10
+341/341 [==============================] - 59s 172ms/step - loss: 0.4152 - accuracy: 0.8653 - val_loss: 0.4000 - val_accuracy: 0.8681
+Epoch 4/10
+341/341 [==============================] - 59s 172ms/step - loss: 0.4027 - accuracy: 0.8650 - val_loss: 0.3942 - val_accuracy: 0.8681
+Epoch 5/10
+341/341 [==============================] - 59s 173ms/step - loss: 0.4078 - accuracy: 0.8576 - val_loss: 0.3919 - val_accuracy: 0.8681
+Epoch 6/10
+341/341 [==============================] - 59s 173ms/step - loss: 0.4079 - accuracy: 0.8560 - val_loss: 0.3921 - val_accuracy: 0.8681
+Epoch 7/10
+341/341 [==============================] - 61s 178ms/step - loss: 0.3994 - accuracy: 0.8626 - val_loss: 0.3889 - val_accuracy: 0.8681
+Epoch 8/10
+341/341 [==============================] - 60s 175ms/step - loss: 0.3969 - accuracy: 0.8627 - val_loss: 0.3883 - val_accuracy: 0.8681
+Epoch 9/10
+341/341 [==============================] - 60s 176ms/step - loss: 0.4000 - accuracy: 0.8602 - val_loss: 0.3901 - val_accuracy: 0.8681
+Epoch 10/10
+341/341 [==============================] - 61s 177ms/step - loss: 0.4025 - accuracy: 0.8589 - val_loss: 0.3879 - val_accuracy: 0.8681
+Evaluate on test data
+2021-05-12 11:40:15.698019: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+86/86 [==============================] - 4s 44ms/step - loss: 0.3879 - accuracy: 0.8681
+2021-05-12 11:40:20.103208: W tensorflow/core/framework/cpu_allocator_impl.cc:80] Allocation of 292669440 exceeds 10% of free system memory.
+confusion matrix:
+ [[2363    0]
+ [ 359    0]]
+test loss, test acc: [0.3879011571407318, 0.8681116700172424]
+
+# 20% data -- 3 conv -- class weights
+runfile('/home/denise/Documents/Vakken/ASR/ASR2021/MFCCneuralmodel.py', wdir='/home/denise/Documents/Vakken/ASR/ASR2021')
+2021-05-12 13:22:23.144848: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2021-05-12 13:22:23.144932: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-05-12 13:23:01.875791: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 13:23:01.876782: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-12 13:23:01.876799: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-12 13:23:01.876817: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (dino): /proc/driver/nvidia/version does not exist
+2021-05-12 13:23:01.877035: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-12 13:23:01.877319: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 13:23:02.192356: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-12 13:23:02.216778: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 1899950000 Hz
+Epoch 1/5
+98/98 [==============================] - 67s 682ms/step - loss: 1.2918 - accuracy: 0.4555 - val_loss: 0.6813 - val_accuracy: 0.5429
+Epoch 2/5
+98/98 [==============================] - 67s 681ms/step - loss: 0.6832 - accuracy: 0.5645 - val_loss: 0.6446 - val_accuracy: 0.7273
+Epoch 3/5
+98/98 [==============================] - 70s 714ms/step - loss: 0.6880 - accuracy: 0.5170 - val_loss: 0.6692 - val_accuracy: 0.5826
+Epoch 4/5
+98/98 [==============================] - 71s 725ms/step - loss: 0.6769 - accuracy: 0.5715 - val_loss: 0.6773 - val_accuracy: 0.5672
+Epoch 5/5
+98/98 [==============================] - 71s 722ms/step - loss: 0.6402 - accuracy: 0.6233 - val_loss: 0.6836 - val_accuracy: 0.5519
+Evaluate on test data
+25/25 [==============================] - 4s 144ms/step - loss: 0.6836 - accuracy: 0.5519
+confusion matrix:
+ [[350 310]
+ [ 40  81]]
+test loss, test acc: [0.6835588216781616, 0.5518565773963928]
+
+# 20% data -- 3 conv -- no class weights
+runfile('/home/denise/Documents/Vakken/ASR/ASR2021/MFCCneuralmodel.py', wdir='/home/denise/Documents/Vakken/ASR/ASR2021')
+Reloaded modules: code_snippets, parse_file, preprocessing, tmp_jq_irj_, tmps4z899mk, tmp8h7yok06
+Epoch 1/5
+98/98 [==============================] - 64s 652ms/step - loss: 0.8115 - accuracy: 0.8077 - val_loss: 0.4411 - val_accuracy: 0.8451
+Epoch 2/5
+98/98 [==============================] - 64s 655ms/step - loss: 0.4305 - accuracy: 0.8592 - val_loss: 0.4262 - val_accuracy: 0.8451
+Epoch 3/5
+98/98 [==============================] - 64s 657ms/step - loss: 0.4040 - accuracy: 0.8601 - val_loss: 0.4224 - val_accuracy: 0.8451
+Epoch 4/5
+98/98 [==============================] - 65s 661ms/step - loss: 0.4017 - accuracy: 0.8523 - val_loss: 0.4320 - val_accuracy: 0.8451
+Epoch 5/5
+98/98 [==============================] - 65s 662ms/step - loss: 0.3828 - accuracy: 0.8657 - val_loss: 0.4297 - val_accuracy: 0.8451
+Evaluate on test data
+25/25 [==============================] - 3s 135ms/step - loss: 0.4297 - accuracy: 0.8451
+confusion matrix:
+ [[660   0]
+ [121   0]]
+ 
+# 20% data -- 3 conv -- class weights (more epochs)
+runfile('/home/denise/Documents/Vakken/ASR/ASR2021/MFCCneuralmodel.py', wdir='/home/denise/Documents/Vakken/ASR/ASR2021')
+2021-05-12 17:47:01.056828: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+2021-05-12 17:47:01.056861: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+2021-05-12 17:47:37.478486: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 17:47:37.479372: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'libcuda.so.1'; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory
+2021-05-12 17:47:37.479383: W tensorflow/stream_executor/cuda/cuda_driver.cc:326] failed call to cuInit: UNKNOWN ERROR (303)
+2021-05-12 17:47:37.479405: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (dino): /proc/driver/nvidia/version does not exist
+2021-05-12 17:47:37.479558: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-05-12 17:47:37.479814: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+2021-05-12 17:47:37.823367: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-05-12 17:47:37.844808: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 1899950000 Hz
+Epoch 1/10
+98/98 [==============================] - 66s 668ms/step - loss: 1.1538 - accuracy: 0.5136 - val_loss: 0.6971 - val_accuracy: 0.3688
+Epoch 2/10
+98/98 [==============================] - 69s 708ms/step - loss: 0.6904 - accuracy: 0.4384 - val_loss: 0.6212 - val_accuracy: 0.8092
+Epoch 3/10
+98/98 [==============================] - 67s 682ms/step - loss: 0.6838 - accuracy: 0.5471 - val_loss: 0.7323 - val_accuracy: 0.3892
+Epoch 4/10
+98/98 [==============================] - 67s 680ms/step - loss: 0.6743 - accuracy: 0.5281 - val_loss: 0.6109 - val_accuracy: 0.7093
+Epoch 5/10
+98/98 [==============================] - 66s 670ms/step - loss: 0.6296 - accuracy: 0.6087 - val_loss: 0.6685 - val_accuracy: 0.6223
+Epoch 6/10
+98/98 [==============================] - 65s 665ms/step - loss: 0.6178 - accuracy: 0.6606 - val_loss: 0.6519 - val_accuracy: 0.6312
+Epoch 7/10
+98/98 [==============================] - 65s 667ms/step - loss: 0.5809 - accuracy: 0.6842 - val_loss: 0.5951 - val_accuracy: 0.7183
+Epoch 8/10
+98/98 [==============================] - 65s 667ms/step - loss: 0.5589 - accuracy: 0.6889 - val_loss: 0.5817 - val_accuracy: 0.7106
+Epoch 9/10
+98/98 [==============================] - 65s 667ms/step - loss: 0.5181 - accuracy: 0.7475 - val_loss: 0.6511 - val_accuracy: 0.6184
+Epoch 10/10
+98/98 [==============================] - 65s 668ms/step - loss: 0.4941 - accuracy: 0.7395 - val_loss: 0.6019 - val_accuracy: 0.6645
+Evaluate on test data
+25/25 [==============================] - 3s 135ms/step - loss: 0.6019 - accuracy: 0.6645
+confusion matrix:
+ [[450 210]
+ [ 52  69]]
+test loss, test acc: [0.6018853783607483, 0.6645326614379883]
+
+# 20% data -- 3 conv -- class weights (more epochs: 50)
