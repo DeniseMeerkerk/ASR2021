@@ -30,8 +30,8 @@ def splitWav(filename=code_snippets.getAudioFilenames()[0][0], ann=code_snippets
             y_train.append(ann[n][1])
     return X_train, y_train
 
-def split_soundfile(file_number=0):
-    wav_files, anno_files = code_snippets.getAudioFilenames()
+def split_soundfile(file_number=0,wav_files=code_snippets.getAudioFilenames()[0],
+                    anno_files=code_snippets.getAudioFilenames()[1]):
     y_data = parse_file.read_lines(anno_files[file_number])
     X, y = splitWav(wav_files[file_number],y_data)
     return X, y
@@ -42,7 +42,8 @@ def split_all_soundfiles(part=1, segment=0):
     filenumbers = range(int(segment*len(wav_files)*part), 
                         int(segment*len(wav_files)*part+len(wav_files)*part))
     for i in filenumbers:
-        Xtemp, ytemp = split_soundfile(file_number=i)
+        Xtemp, ytemp = split_soundfile(file_number=i,wav_files=wav_files,
+                                       anno_files=anno_files)
         X.append(Xtemp)
         y.append(ytemp)
     X = [item for sublist in X for item in sublist]
