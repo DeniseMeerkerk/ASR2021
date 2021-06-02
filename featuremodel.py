@@ -6,12 +6,17 @@ Created on Wed Apr 28 2021
 """
 
 import numpy as np
+import re
+import sys
 
 import code_snippets
 import parse_file
 import preprocessing
 
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+
 import parselmouth
 
 #Plotting imports
@@ -36,20 +41,44 @@ def feature_extraction(X):
         features_for_x.append(snd.get_intensity())
         
         #print(x)
-        print(i, len(x))
-        pitch = snd.to_pitch()
-        print(pitch.quantile)
-        features_for_x.append(pitch.get_value_in_frame(0))
+        #print(i, len(x))
         
-    
-    
+        # Use parselmouth pitch object to obtain interesting pitch features
+        # Since no getters for these data were found in the documentation, we
+        # use the tostring method and then parse that string
+        # Ugly? Yes. Does it work? Also yes.
+        pitch = snd.to_pitch() # Make a Parselmouth pitch object
+        
+        #print(pitch)
+        try: 
+            # Pitch in first 10% of the sound file
+            features_for_x.append(float(re.findall(" 10% = \d+\.\d+ Hz = (\d+\.\d+)", str(pitch))[0]))
+            
+            # Pitch in final 90% of the sound file
+            features_for_x.append(float(re.findall(" 90% = \d+\.\d+ Hz = (\d+\.\d+)", str(pitch))[0]))
+            
+            # Pitch difference between end and start (uses the previous two)
+            features_for_x.append(features_for_x[-1] - features_for_x[-2])
+        except: 
+            #print(pitch)
+            #print("Whew", sys.exc_info()[0], "occurred.")
+            features_for_x.append(0.0)
+            features_for_x.append(0.0)
+            features_for_x.append(0.0)
+        
         features.append(features_for_x)
     return np.matrix(features)
 
-def run_knn(features, y):
+def run_knn(X_train, y_train, X_test, y_test, X_val, y_val):
+    #X_train, X_test, y_train, y_test = train_test_split(features, y, test_size=0.33, random_state=42)
+    X_train = feature_extraction(X_train)
+    X_test = feature_extraction(X_test)
     neigh = KNeighborsClassifier(n_neighbors=3)
-    neigh.fit(features, y)
-    print(neigh.score(features,y))
+    neigh.fit(X_train, y_train)
+    print(neigh.score(X_test,y_test))
+    y_pred = neigh.predict(X_test)
+    cm=confusion_matrix(y_pred,y_test)
+    print(cm)
 
 # The following three plotting functions have been taken from: https://github.com/YannickJadoul/Parselmouth
 def draw_spectrogram(spectrogram, dynamic_range=70):
@@ -110,10 +139,10 @@ def test_parselmouth(X):
     plt.xlim([snd.xmin, snd.xmax])
     plt.show() # or plt.savefig("spectrogram_0.03.pdf")
 
-X,y = preprocessing.split_soundfile()
-features = feature_extraction(X)
-print(features)
-run_knn(features, y)
+X_train, y_train, X_test, y_test, X_val, y_val = preprocessing.train_test_val_split()#X,y = preprocessing.split_all_soundfiles(part=0.1)
+#features = feature_extraction(X)
+#print(features)
+run_knn(X_train, y_train, X_test, y_test, X_val, y_val)
 
 
 
