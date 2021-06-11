@@ -1,0 +1,23 @@
+Trained model test set results0
+Evaluation
+118/118 [==============================] - 35s 293ms/step - loss: 0.6342 - accuracy: 0.7579
+confusion matrix:
+ [[2632  574]
+ [ 405  149]]
+accuracy: 73.96%
+
+Trained model test set results1
+Evaluation
+118/118 [==============================] - 39s 331ms/step - loss: 0.6333 - accuracy: 0.7767
+confusion matrix:
+ [[2799  407]
+ [ 456   98]]
+accuracy: 77.05%
+
+Trained model test set results2
+Evaluation
+118/118 [==============================] - 36s 305ms/step - loss: 0.6331 - accuracy: 0.8022
+confusion matrix:
+ [[2945  261]
+ [ 491   63]]
+accuracy: 80.00%
