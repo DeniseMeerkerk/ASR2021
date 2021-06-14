@@ -94,15 +94,21 @@ def plotMFCC(X, sample_rate):
 
     '''
     mfcc2 = librosa.feature.mfcc(y=X, sr=sample_rate, S=None, n_mfcc=20, dct_type=2, norm='ortho', lifter=0)
-    mfcc3 = librosa.feature.mfcc(y=X, sr=sample_rate, S=None, n_mfcc=20, dct_type=3, norm='ortho', lifter=0)
-    fig, ax = plt.subplots(nrows=3, sharex=True, sharey=True)
-    img2 = librosa.display.specshow(mfcc2, x_axis='time', ax=ax[0])
-    ax[0].set(title='Title: MFCC (dct_type=2)')
-    fig.colorbar(img2, ax=[ax[0]])
-    img3 = librosa.display.specshow(mfcc3, x_axis='time', ax=ax[2])
-    ax[2].set(title='HTK-style (dct_type=3)')
-    fig.colorbar(img3, ax=[ax[2]])
-    ax[1].remove()
+    fig, ax = plt.subplots()
+    im = librosa.display.specshow(mfcc2, x_axis='time')
+    #im.title("MFCC")
+    fig.colorbar(im, ax=ax)
+    
+    
+    #mfcc3 = librosa.feature.mfcc(y=X, sr=sample_rate, S=None, n_mfcc=20, dct_type=3, norm='ortho', lifter=0)
+    #fig, ax = plt.subplots(nrows=1, sharex=True, sharey=True)
+    #img2 = librosa.display.specshow(mfcc2, x_axis='time', ax=ax[0])
+    #ax[0].set(title='Title: MFCC (dct_type=2)')
+    #fig.colorbar(img2, ax=[ax[0]])
+    #img3 = librosa.display.specshow(mfcc3, x_axis='time', ax=ax[2])
+    #ax[2].set(title='HTK-style (dct_type=3)')
+    #fig.colorbar(img3, ax=[ax[2]])
+    #ax[1].remove()
     return
 
 #%%
@@ -116,4 +122,9 @@ if __name__ == '__main__':
     wav_files, anno_files, X, sample_rate = main()
 
 # https://github.com/wilrop/Import-CGN
+
+'''
+fig, ax = plt.subplots()
+im = librosa.display.specshow(X_train[5367].reshape((20,-1)), x_axis='time')
+fig.colorbar(im, ax=ax)'''
 

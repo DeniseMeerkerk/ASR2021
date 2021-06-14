@@ -176,7 +176,7 @@ def main():
                   metrics=['accuracy'])
     
     #callbacks
-    checkpoint_path = "training_05-26/cp.ckpt"
+    checkpoint_path = "training_06-02/cp.ckpt"
     
     earlyStopping = EarlyStopping(monitor='val_loss', patience=10, verbose=0,
                                   mode='min')
