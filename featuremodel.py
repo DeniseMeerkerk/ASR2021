@@ -16,6 +16,8 @@ import preprocessing
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
+from sklearn import tree
+
 
 import parselmouth
 
@@ -48,37 +50,79 @@ def feature_extraction(X):
         # use the tostring method and then parse that string
         # Ugly? Yes. Does it work? Also yes.
         pitch = snd.to_pitch() # Make a Parselmouth pitch object
-        
-        #print(pitch)
+        if i==5:
+            print(pitch)
         try: 
             # Pitch in first 10% of the sound file
             features_for_x.append(float(re.findall(" 10% = \d+\.\d+ Hz = (\d+\.\d+)", str(pitch))[0]))
             
             # Pitch in final 90% of the sound file
             features_for_x.append(float(re.findall(" 90% = \d+\.\d+ Hz = (\d+\.\d+)", str(pitch))[0]))
+            #print(type(features_for_x[-1]))
             
             # Pitch difference between end and start (uses the previous two)
             features_for_x.append(features_for_x[-1] - features_for_x[-2])
+
+            
+            # Mean absolute slope
+            #features_for_x.append(float(re.findall("Mean absolute slope: (\d+\.?\d+) Hz", str(pitch))[0]))
+            #print(type(features_for_x[-1]))
+            
+            # Mean absolute slope without octave jumps
+            #features_for_x.append(float(re.findall("Mean absolute slope without octave jumps: (\d+\.?\d+) semitones", str(pitch))[0]))
+            #print(features_for_x[-1])
+            
         except: 
             #print(pitch)
             #print("Whew", sys.exc_info()[0], "occurred.")
             features_for_x.append(0.0)
             features_for_x.append(0.0)
             features_for_x.append(0.0)
+            #features_for_x.append(0.0)
+            #features_for_x.append(0.0)
         
         features.append(features_for_x)
     return np.matrix(features)
 
-def run_knn(X_train, y_train, X_test, y_test, X_val, y_val):
+def run_knn(X_train, y_train, X_test, y_test, X_val, y_val, method="knn"):
     #X_train, X_test, y_train, y_test = train_test_split(features, y, test_size=0.33, random_state=42)
     X_train = feature_extraction(X_train)
     X_test = feature_extraction(X_test)
-    neigh = KNeighborsClassifier(n_neighbors=3)
-    neigh.fit(X_train, y_train)
-    print(neigh.score(X_test,y_test))
-    y_pred = neigh.predict(X_test)
+    if method == "knn":
+        clf = KNeighborsClassifier(n_neighbors=3) 
+    if method == "tree":
+        clf = tree.DecisionTreeClassifier()
+    #print(X_train)
+    clf.fit(X_train, y_train)
+    print(clf.score(X_test,y_test))
+    y_pred = clf.predict(X_test)
     cm=confusion_matrix(y_pred,y_test)
     print(cm)
+
+
+def run_algo_multiple_times(X_train, y_train, X_test, y_test, X_val, y_val, method="knn"):
+    #X_train, X_test, y_train, y_test = train_test_split(features, y, test_size=0.33, random_state=42)
+    X_train = feature_extraction(X_train)
+    X_test = feature_extraction(X_test)
+    m = 50
+    scores=[]
+    tests = range(1,m)
+    for i in tests:
+        if method == "knn":
+            clf = KNeighborsClassifier(n_neighbors=i) 
+        if method == "tree":
+            clf = tree.DecisionTreeClassifier(min_samples_split=i)
+        #print(X_train)
+        clf.fit(X_train, y_train)
+        scores.append(clf.score(X_test,y_test))
+    y_pred = clf.predict(X_test)
+    cm=confusion_matrix(y_pred,y_test)
+    print(cm)
+    print(scores)
+    plt.plot(tests, scores)
+    plt.ylabel("Score")
+    plt.xlabel("n_neighbors")
+    plt.show()
 
 # The following three plotting functions have been taken from: https://github.com/YannickJadoul/Parselmouth
 def draw_spectrogram(spectrogram, dynamic_range=70):
@@ -142,8 +186,9 @@ def test_parselmouth(X):
 X_train, y_train, X_test, y_test, X_val, y_val = preprocessing.train_test_val_split()#X,y = preprocessing.split_all_soundfiles(part=0.1)
 #features = feature_extraction(X)
 #print(features)
-run_knn(X_train, y_train, X_test, y_test, X_val, y_val)
+#run_knn(X_train, y_train, X_test, y_test, X_val, y_val, method = "tree")
 
+run_algo_multiple_times(X_train, y_train, X_test, y_test, X_val, y_val, method="knn")
 
 
 
